@@ -8,7 +8,7 @@ package com.cge.acm;
 public class PalindromeNumber {
 	public static void main(String[] args) {
 		System.out.println(isPalindrome(-321123));
-		System.out.println(isPalindromeRecursive(321123));
+		System.out.println(isPalindromeRecursive(2313));
 	}
 	
 	/**
@@ -34,16 +34,15 @@ public class PalindromeNumber {
 		if(x<0) return false;
 		else {
 			String str = String.valueOf(x);
-			return recursiveStr(0, str.length(), str);
+			return recursiveStr(0, str.length()-1, str, str.length());
 		}
 	}
-	public static boolean recursiveStr(int low, int high, String str){
-		if(low!=high)
-			return recursiveStr(low+1, high-1, str);
-		if(str.charAt(low)==str.charAt(high))
+	public static boolean recursiveStr(int low, int high, String str, int length){
+		if(length==0 || length==1)
 			return true;
-		else 
+		if(str.charAt(low)!=str.charAt(high))
 			return false;
+		return recursiveStr(low+1, high-1, str, length-2);
 		
 	}
 }
