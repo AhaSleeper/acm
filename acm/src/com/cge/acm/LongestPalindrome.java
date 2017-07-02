@@ -9,7 +9,8 @@ public class LongestPalindrome {
 	public static void main(String[] args) {
 		String str = "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc";
 //		System.out.println(longestPalindromeBf(str));
-		System.out.println(longestPalindromeDp("c"));
+//		System.out.println(longestPalindromeDp("c"));
+		System.out.println(longestPalindromeManacher("ccc"));
 	}
 	/**
 	 * 暴力法
@@ -69,7 +70,42 @@ public class LongestPalindrome {
 				}
 			}
 		}
-		System.out.println("start="+start+",maxLen="+maxLength);
 		return s.substring(start, start+maxLength);
+	}
+	
+	/**
+	 * 最长回文子串（manacher解法）
+	 * @param s
+	 * @return
+	 */
+	public static String longestPalindromeManacher(String s){
+		StringBuilder sb = new StringBuilder();
+		sb.append("#");
+		for(int i = 0; i<s.length(); i++){
+			sb.append(s.charAt(i)).append("#");
+		}
+		String str = sb.toString();
+		int maxRight=0, pos=0,length=str.length(),maxLen=0,start=0;
+		int[] rl = new int[length];
+		for(int i = 0; i<length; i++){
+			if(i<maxRight)
+				rl[i] = Math.min(rl[2*pos-i], maxRight-i);
+			else 
+				rl[i]=1;
+			//尝试扩展
+			while(i-rl[i]>=0 && i+rl[i]<length && str.charAt(i-rl[i])==str.charAt(i+rl[i])){
+				rl[i]+=1;
+			}
+			//更新maxRight,pos
+			if(rl[i]+i-1>maxRight){
+				maxRight=rl[i]+i-1;
+				pos=i;
+			}
+			if(rl[i]>maxLen){
+				maxLen=rl[i];
+				start = i;
+			}
+		}
+		return str.substring(start-maxLen+1, start+maxLen).replace("#", "");
 	}
 }
