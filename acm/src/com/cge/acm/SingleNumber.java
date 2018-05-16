@@ -3,9 +3,9 @@ package com.cge.acm;
 public class SingleNumber {
 	public static int singleNumber(int[] nums){
 		int result=0;
+		//异或运算（传递性）
 		for(int i=0; i<nums.length; i++){
 			result ^= nums[i];
-			System.out.print(result+",");
 		}
 		return result;
 	}
