@@ -4,7 +4,7 @@ public class PartitionList {
 	public ListNode partition(ListNode head, int x) {
         if(null == head) return head;  
         ListNode xNode = head, insertPointer=null, insertPre=null, pre=null;
-        //find the node whose val equals x
+        //find the node whose val greater or equals x
         while(xNode!=null){
         	if(xNode.val>=x && insertPointer==null){
         		insertPre = pre;
