@@ -1,30 +1,33 @@
 package com.cge.acm;
-
 /**
  * @author zhuojh
  *
  */
 public class ReverseLinkedListII {
 	
-	public ListNode reverseBetween(ListNode head, int m, int n) {
+	public static ListNode reverseBetween(ListNode head, int m, int n) {
 		if(null == head) return head;
-		ListNode beforeReverse = null, curr = head,first = null, last = null, pre=null;
-		int i=1;
-		//reverse 
-		while(null != curr && i<n){
-			if(i==m){
-				beforeReverse=curr;
-			}
-			if(last==null && i-1==m) {
+		ListNode beforeReverse = null, curr = head;
+		for(int i=1; i<m;i++){
+			beforeReverse = curr;
+			curr = curr.next;
+		}
+		ListNode first = null, last = null, pre=null, temp = null;
+		//reverse
+		while(null != curr && m<=n){
+			if(last==null) {
 				last = curr;
 				first = curr;
-			} else if(i>=m){
+				pre = curr;
+				curr = curr.next;
+			} else {
 				first = curr;
+				temp = curr.next;
 				first.next = pre;
+				pre = first;
+				curr = temp;
 			}
-			pre = curr;
-			curr = curr.next;
-			i++;
+			m++;
 		}
 		//combine
 		last.next = curr;
