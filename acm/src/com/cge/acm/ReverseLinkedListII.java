@@ -1,8 +1,4 @@
 package com.cge.acm;
-/**
- * @author zhuojh
- *
- */
 public class ReverseLinkedListII {
 	
 	public static ListNode reverseBetween(ListNode head, int m, int n) {
