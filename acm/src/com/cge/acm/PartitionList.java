@@ -1,57 +1,48 @@
 package com.cge.acm;
 
 public class PartitionList {
-	
-	/**
-	 * 
-	 * @param head
-	 * @param val
-	 * @return
-	 */
-	public static ListNode partitionList(ListNode head, int val){
-		if(null == head) return head;
-		ListNode lessListFirst = null,lessListLast = null, curr = head, pre = null, insertPosition=null;
-		while(curr != null){//find the position of val
-			if(null == insertPosition && curr.val>=val){//find where to combine the new list
-				insertPosition=curr;
-			}
-			if(curr.val!=val){
-				curr = curr.next;
-			} else break;
-		}
-		//find nodes whose val is less than val, delete them and put them in a new list
-		curr = curr.next;
-		pre=curr;
-		while(curr!=null){
-			if(curr.val<val){
-				if(null == lessListFirst){
-					lessListFirst = curr;
-					lessListLast = curr;
-					pre.next = curr.next;
-					curr = curr.next;
-					lessListFirst.next = null;
-				} else {
-					lessListLast.next = curr;
-					lessListLast = lessListLast.next;
-					lessListLast.next = null;
-					pre.next = curr.next;
-					curr = curr.next;
-				}
-			} else {
-				pre = curr;
-				curr = curr.next;
-			}
-		}
-		if(insertPosition!=null){
-			lessListLast.next = insertPosition.next;
-			insertPosition.next = lessListLast;
-		} else {
-			lessListLast.next = insertPosition;
-		}
-		return head;
-	}
-	public static void main(String[] args) {
-		
-	}
-
+	public ListNode partition(ListNode head, int x) {
+        if(null == head) return head;  
+        ListNode xNode = head, insertPointer=null, insertPre=null, pre=null;
+        //find the node whose val greater or equals x
+        while(xNode!=null){
+        	if(xNode.val>=x && insertPointer==null){
+        		insertPre = pre;
+        		insertPointer = xNode; 
+        		break;
+        	}
+        	pre = xNode;
+        	xNode = xNode.next;
+        }
+        if(xNode==null) return head;
+        ListNode first=null, last=null;
+        pre = xNode;
+        xNode = xNode.next;
+        while(xNode!=null){
+        	if(xNode.val<x){
+        		if(first==null){
+        			first = xNode;
+        			last = xNode;
+        		} else {
+        			last.next = xNode;
+        			last = last.next;
+        		}
+        		pre.next = xNode.next;
+        		xNode = xNode.next;
+        	} else {
+        		pre = xNode;
+        		xNode = xNode.next;
+        	}
+        }
+        if(null == first || null == last) return head;
+        if(null != insertPre){
+        	last.next = insertPointer;
+        	insertPre.next = first;
+        } else {
+        	last.next = head;
+        	return first;
+        }
+        return head;
+    }
 }
+

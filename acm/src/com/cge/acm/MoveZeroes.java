@@ -20,11 +20,6 @@ public class MoveZeroes {
 			nums[insertIdx]=0;
 			insertIdx++;
 		}
-        System.out.print("[");
-        for(int i=0; i<nums.length;i++){
-        	System.out.print(nums[i]+",");
-        }
-        System.out.print("]");
     }
 	public static void main(String[] args) {
 		int[] nums = {0,1};

@@ -1,4 +1,11 @@
 package com.cge.acm;
+/**
+ * @author Administrator
+ *
+ * test case
+ * //["MyLinkedList","addAtHead","addAtHead","deleteAtIndex","addAtIndex","addAtHead","addAtHead" ,"addAtHead","get","addAtTail","addAtIndex","addAtHead"]
+    [[],[5],[2],[1],[1,9],[4],[9],[8],[3],[1],[3,6],[3]]
+ */
 public class MyLinkedList {
 	private ListNode head;
 	private int size = 0;
@@ -8,7 +15,7 @@ public class MyLinkedList {
     
     /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
     public int get(int index) {
-    	while(index>size || index<0) return -1;
+    	if(index>size-1 || index<0) return -1;
     	int i=0;
     	ListNode curr = head;
     	while(i<index){
@@ -25,9 +32,12 @@ public class MyLinkedList {
      *  After the insertion, the new node will be the first node of the linked list. */
     public void addAtHead(int val) {
         ListNode node = new ListNode(val);
-        if(null != this.head)
-        	node.next = this.head.next;
-        this.head = node;
+        if(null == this.head)
+        	this.head = node;
+        else {
+        	node.next = this.head;
+        	this.head = node;
+        }
         size++;
     }
     
@@ -37,6 +47,7 @@ public class MyLinkedList {
         ListNode curr = this.head;
         if(this.head==null){
         	this.head = node;
+        	size++;
         	return;
         }
         while(curr.next != null){
@@ -79,17 +90,21 @@ public class MyLinkedList {
     
     /** Delete the index-th node in the linked list, if the index is valid. */
     public void deleteAtIndex(int index) {
-    	if(index>size || index<0) return;
+    	if(index>size-1 || index<0) return;
         ListNode curr = this.head, pre=null;
         int i=0;
         while(i<index){
         	pre = curr;
         	curr = curr.next;
+        	i++;
         }
         if(pre==null){
         	this.head = null;
         } else {
-        	pre.next = curr.next;
+        	if(curr==null)
+        		pre.next = null;
+        	else 
+        		pre.next = curr.next;
         }
         size--;
     }
@@ -103,30 +118,5 @@ public class MyLinkedList {
 			curr = curr.next;
 		}
 		return str;
-	}
-
-	public static void main(String[] args) {
-		//["MyLinkedList","get","addAtIndex","get","get","addAtIndex","get","get"]
-		//[[],[0],[1,2],[0],[1],[0,1],[0],[1]]
-    	MyLinkedList obj = new MyLinkedList();
-    	obj.get(0);
-    	obj.addAtIndex(1, 2);;
-    	obj.get(0);
-    	obj.get(1);
-    	obj.addAtIndex(0, 1);
-    	obj.get(0);
-    	obj.get(1);
-//    	obj.addAtHead(5);
-//    	System.out.println(obj);
-//    	obj.addAtTail(4);
-//    	System.out.println("get:"+obj.get(1));
-//    	System.out.println(obj);
-//    	obj.addAtIndex(1,9);
-//    	obj.addAtIndex(1,10);
-//    	System.out.println(obj);
-//    	obj.deleteAtIndex(2);
-//    	System.out.println(obj);
-//    	obj.addAtTail(12);
-//    	System.out.println(obj);
 	}
 }

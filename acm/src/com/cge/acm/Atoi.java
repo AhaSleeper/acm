@@ -52,6 +52,7 @@ public class Atoi {
         return 0;
     }
 	public static void main(String[] args) {
-		System.out.println(myAtoi("  +0 123"));
+		/*System.out.println(myAtoi("  +0 123"));*/
+		System.out.println(1 << 30);
 	}
 }
