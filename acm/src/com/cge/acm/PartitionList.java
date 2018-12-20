@@ -10,7 +10,7 @@ public class PartitionList {
         		insertPre = pre;
         		insertPointer = xNode; 
         		break;
-        	}
+        	} 
         	pre = xNode;
         	xNode = xNode.next;
         }

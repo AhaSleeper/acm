@@ -1,10 +1,10 @@
 package com.cge.acm;
 
 /**
- * 使用快指针、满指针
+ * 使用快指针、慢指针
  * 1.快指针与慢指针相差一步，慢指针前进一步，快指针前进两步，相遇；
  * 2.快指针与慢指针相差两步，慢指针前进一步，快指针前进两步，转化为情况1；
- * @author Administrator
+ * @author zhuojh
  *
  */
 public class HasCycle {

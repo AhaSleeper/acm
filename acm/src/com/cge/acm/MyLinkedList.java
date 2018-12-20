@@ -7,7 +7,8 @@ package com.cge.acm;
     [[],[5],[2],[1],[1,9],[4],[9],[8],[3],[1],[3,6],[3]]
  */
 public class MyLinkedList {
-	private ListNode head;
+	private ListNode first;
+	private ListNode last;
 	private int size = 0;
     /** Initialize your data structure here. */
     public MyLinkedList() {
@@ -17,7 +18,7 @@ public class MyLinkedList {
     public int get(int index) {
     	if(index>size-1 || index<0) return -1;
     	int i=0;
-    	ListNode curr = head;
+    	ListNode curr = first;
     	while(i<index){
     		curr = curr.next;
     		i++;
@@ -32,11 +33,11 @@ public class MyLinkedList {
      *  After the insertion, the new node will be the first node of the linked list. */
     public void addAtHead(int val) {
         ListNode node = new ListNode(val);
-        if(null == this.head)
-        	this.head = node;
+        if(null == this.first)
+        	this.first = node;
         else {
-        	node.next = this.head;
-        	this.head = node;
+        	node.next = this.first;
+        	this.first = node;
         }
         size++;
     }
@@ -44,16 +45,14 @@ public class MyLinkedList {
     /** Append a node of value val to the last element of the linked list. */
     public void addAtTail(int val) {
         ListNode node = new ListNode(val);
-        ListNode curr = this.head;
-        if(this.head==null){
-        	this.head = node;
+        if(this.first==null){
+        	this.first = node;
+        	this.last = node;
         	size++;
         	return;
         }
-        while(curr.next != null){
-        	curr = curr.next;
-        }
-        curr.next = node;
+        node.next = this.last.next;
+        this.last = node;
         size++;
     }
     
@@ -64,7 +63,7 @@ public class MyLinkedList {
      */
     public void addAtIndex(int index, int val) {
         if(index>size || index<0) return;
-        ListNode curr = this.head, pre = null;
+        ListNode curr = this.first, pre = null;
         if(index<size){
         	int i=0;
         	while(i<index){
@@ -83,7 +82,7 @@ public class MyLinkedList {
         	if(curr!=null)
         		curr.next = node;
         	else 
-        		this.head = node;
+        		this.first = node;
         }
         size++;
     }
@@ -91,7 +90,7 @@ public class MyLinkedList {
     /** Delete the index-th node in the linked list, if the index is valid. */
     public void deleteAtIndex(int index) {
     	if(index>size-1 || index<0) return;
-        ListNode curr = this.head, pre=null;
+        ListNode curr = this.first, pre=null;
         int i=0;
         while(i<index){
         	pre = curr;
@@ -99,7 +98,7 @@ public class MyLinkedList {
         	i++;
         }
         if(pre==null){
-        	this.head = null;
+        	this.first = null;
         } else {
         	if(curr==null)
         		pre.next = null;
@@ -111,7 +110,7 @@ public class MyLinkedList {
     
     @Override
 	public String toString() {
-		ListNode curr = this.head;
+		ListNode curr = this.first;
 		String str = "";
 		while(curr!=null){
 			str += curr.val+",";
