@@ -8,7 +8,7 @@ public class ReverseLinkedListKGroup {
             curr = curr.next;
             count++;
         }
-        if(count>0){
+        if(count==k){
             curr = reverseKGroup(curr, k);
             while(count-->0){
                 ListNode temp = head.next;
@@ -24,8 +24,7 @@ public class ReverseLinkedListKGroup {
 		if(null == head || head.next==null) return head;
 		ListNode temp = head.next;
 		head.next = null;
-		head = temp;
-		return reverse(head, head.next);
+		return reverse(head, temp);
 	}
 	
 	public ListNode reverse(ListNode pre, ListNode next){
@@ -33,7 +32,6 @@ public class ReverseLinkedListKGroup {
 		ListNode temp = next.next;
 		next.next = pre;
 		pre = next;
-		next = temp;
-		return reverse(pre, next);
+		return reverse(pre, temp);
 	}
 }
