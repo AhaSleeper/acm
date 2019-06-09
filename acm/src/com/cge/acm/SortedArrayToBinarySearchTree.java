@@ -50,6 +50,24 @@ public class SortedArrayToBinarySearchTree {
         return treeNode;
     }
 
+    /**
+     * 排序数组转化为平衡查找树
+     * @param nums
+     * @return
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if(nums.length==0) return null;
+        return arrayToBST(nums, 0, nums.length-1);
+    }
+    public TreeNode arrayToBST(int[] nums, int low, int high){
+        int mid = (high+low)/2;
+        if(low>high) return null;
+        TreeNode node = new TreeNode(nums[mid]);
+        node.left = arrayToBST(nums, low, mid-1);
+        node.right = arrayToBST(nums, mid+1, high);
+        return node;
+    }
+
     public static void insertToTree(TreeNode head, TreeNode node){
         if(node.val > head.val) {
             if(head.right == null)
