@@ -265,3 +265,21 @@ SELECT SUM(item_price*quantity) AS total_price FROM orderitems WHERE order_num =
 
 **十二、使用子查询**
 
+1. 利用子查询进行过滤
+
+   ```mysql
+   select cust_id from orders where orders_num in (select order_num from orderitems where prod_id='TNT2');
+   ```
+
+   在select语句中，子查询总是从内向外处理。
+
+2. 作为计算字段使用子查询
+
+   ```mysql
+   SELECT cust_name, cust_state, (SELECT COUNT(*) FROM orders where orders.cust_id = customers.cust_id) AS orders FROM customers ORDER BY cust_name;
+   ```
+
+   涉及外部查询的子查询称为相关子查询。
+
+**十三、联结表**
+
