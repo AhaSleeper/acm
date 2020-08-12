@@ -1,11 +1,15 @@
 Java基础
 1、List 和 Set 的区别
-List允许添加重复元素，而set不允许存在重复元素。
+List允许添加重复元素，并且保证存储的元素是按照添加的先后顺序排列的，而set不允许存在重复元素，并且无法保证遍历的时候，元素可以按照存放时的
+顺序取出，也就是无法保证元素是有序的。
 2、HashSet 是如何保证不重复的 
-hashSet底层是使用hashMap实现的，元素存储时是作为hashMap的key存起来的，在hashMap中key是不能重复的，通过这种方式，
-hashSet实现了元素不重复。
+hashSet是通过比较对象的hashCode，同时根据equals判断，如果二者都相同，那么对象就是重复的，否则就是不同对象。
 3、HashMap 是线程安全的吗，为什么不是线程安全的（最好画图说明多线程环境下不安全）? 
-hashMap不是线程安全的。
+hashMap不是线程安全的。在多线程中对hashMap进行操作，可能会产生不符合预期的问题：
+1）put操作可能会导致元素丢失；
+2）put和get并发时，可能导致get为null
+线程1执行put时，因为元素个数超出threshold而导致rehash，线程2此时执行get，有可能导致这个问题；
+3）jdk1.7中HashMap的并发put操作会造成循环链表的形成，从而导致get操作死循环。
 4、HashMap 的扩容过程 
 5、HashMap 1.7 与 1.8 的 区别，说明 1.8 做了哪些优化，如何优化的？ 
 6、final finally finalize 
